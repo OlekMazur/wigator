@@ -2,16 +2,27 @@ name: Build
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - main
 
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v3
-
+    - name: Use Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 16
+        cache: 'npm'
     - name: Install dependencies
-      run: make node_modules
-
+      run: npm ci
     - name: Build
       run: make
+    - name: Prepare for publishing
+      run: |
+        mkdir -p _site
+        mv output/wigator.html _site/index.html
+    - name: Publish
+      uses: actions/upload-pages-artifact@v3
