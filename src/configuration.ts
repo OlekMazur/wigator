@@ -19,9 +19,6 @@
 
 const configuration = {
 	maps: {
-		'liveuamap.com': {
-			'pattern': 'https://maps.liveuamap.com/osm_tiles/{z}/{x}/{y}.png'
-		},
 		'OpenStreetMap - humanitarna': {
 			'pattern': 'http://tile-{s}.openstreetmap.fr/hot/{z}/{x}/{y}.png'
 		},
@@ -37,9 +34,6 @@ const configuration = {
 		'OpenTopoMap': {
 			'pattern': 'https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png',
 			'maxZoom': 17
-		},
-		'Wikimedia': {
-			'pattern': 'https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png'
 		},
 		'Stamen Toner': {
 			'pattern': 'http://tile.stamen.com/toner/{z}/{x}/{y}.png'
