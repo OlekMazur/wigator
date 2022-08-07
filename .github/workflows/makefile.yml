@@ -20,9 +20,24 @@ jobs:
       run: npm ci
     - name: Build
       run: make
-    - name: Prepare for publishing
+
+  deploy:
+    needs: build
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+    - name: Configure pages
+      uses: actions/configure-pages@v1
+    - name: Prepare
       run: |
         mkdir -p _site
         mv output/wigator.html _site/index.html
-    - name: Publish
-      uses: actions/upload-pages-artifact@v3
+    - name: Upload
+      uses: actions/upload-pages-artifact@v1
+    - name: Deploy
+      uses: actions/deploy-pages@v1
