@@ -1,7 +1,9 @@
+[![Build](https://github.com/OlekMazur/wigator/actions/workflows/makefile.yml/badge.svg)](https://github.com/OlekMazur/wigator/actions/workflows/makefile.yml)
+
 Very simple Leaflet-based interactive map
 =========================================
 
-It bundles into a single HTML file.
+It bundles into a [single HTML file](https://OlekMazur.github.io/wigator).
 It shows current position and pre-defined POIs on a map.
 The map background can use either online OSM-compatible raster tiles, or an offline map bundle.
 
