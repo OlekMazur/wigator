@@ -46,7 +46,7 @@ class MyToolBar extends Control {
 		let link: HTMLAnchorElement
 		// open main menu button
 		link = DomUtil.create('a', A_CLASS, container)
-		link.innerText = menuText
+		link.innerHTML = menuText
 		link.href = '#'
 		link.title = menuTitle
 		link.setAttribute('role', 'button')
@@ -64,11 +64,11 @@ class MyToolBar extends Control {
 		this.setFollow(link, options.follow)
 		// full-screen button
 		link = DomUtil.create('a', A_CLASS, container)
+		link.innerHTML = fsText
 		link.href = '#'
 		link.title = fsTitle
 		link.setAttribute('role', 'button')
 		link.setAttribute(ARIA_LABEL, fsTitle)
-		link.innerHTML = fsText
 		DomEvent.disableClickPropagation(link)
 		DomEvent.on(link, 'click', toggleFullscreen, this)
 		// show current zoom
@@ -101,7 +101,7 @@ class MyToolBar extends Control {
 	private readonly handleZoom = () => {
 		if (this.zoom && this.map) {
 			const zoom = this.map.getZoom()
-			this.zoom.innerText = zoom.toString()
+			this.zoom.innerHTML = zoom.toString()
 		}
 	}
 }

@@ -63,13 +63,3 @@ function formatTime(dt: Date): string {
 export function formatTS(ts: number): string {
 	return ts ? formatTime(new Date(ts)) : ''
 }
-
-/*
-export function domSetText(id: string, content: string): void {
-	const elem = document.getElementById(id)
-	if (elem)
-		elem.innerText = content
-	else
-		console.warn('Cannot find element ID=' + id)
-}
-*/

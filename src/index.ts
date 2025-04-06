@@ -24,7 +24,6 @@ import './index.css'
 import { optionsLoad, optionsSave } from './options'
 import { mapStart, mapLoad, mapLocate, mapFinish } from './map'
 import { menuStart } from './menu'
-import { hideAlert } from './alert'
 import configuration from './configuration'
 
 document.body.onload = function() {
@@ -37,8 +36,6 @@ document.body.onload = function() {
 	.then((result) => result.json())
 	.catch(() => configuration)
 	.then(mapLoad)
-
-	hideAlert()
 }
 
 window.addEventListener('unload', () => {

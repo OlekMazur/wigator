@@ -44,5 +44,8 @@ function exitFullscreen() {
 }
 
 export function toggleFullscreen() {
-	isFullscreen() ? exitFullscreen() : enterFullscreen()
+	if (isFullscreen())
+		exitFullscreen()
+	else
+		enterFullscreen()
 }

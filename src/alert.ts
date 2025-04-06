@@ -1,7 +1,7 @@
 /*
  * This file is part of Wigator.
  *
- * Copyright (c) 2020 Aleksander Mazur
+ * Copyright (c) 2020, 2024 Aleksander Mazur
  *
  * Wigator is free software: you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -34,7 +34,7 @@ export function hideAlert() {
 export function startAlert(content?: string): HTMLElement | null {
 	const div = document.getElementById(ALERT_ELEMENT)
 	if (div && content !== undefined) {
-		div.innerText = content
+		div.innerHTML = content
 	}
 	return div
 }

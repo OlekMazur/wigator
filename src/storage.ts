@@ -28,7 +28,7 @@ export function storageLoadStr(name: string, defaultValue = ''): string {
 		const value = window.localStorage.getItem(STORAGE_PREFIX + name)
 		if (typeof value === 'string')
 			return value
-	} catch (e) {
+	} catch (_e) {
 	}
 	return defaultValue
 }
@@ -36,7 +36,7 @@ export function storageLoadStr(name: string, defaultValue = ''): string {
 export function storageSaveStr(name: string, value: string): void {
 	try {
 		window.localStorage.setItem(STORAGE_PREFIX + name, value)
-	} catch (e) {
+	} catch (_e) {
 	}
 }
 
@@ -62,7 +62,7 @@ export function storageSaveBool(name: string, value: boolean): void {
 export function storageDelete(name: string): void {
 	try {
 		window.localStorage.removeItem(STORAGE_PREFIX + name)
-	} catch (e) {
+	} catch (_e) {
 	}
 }
 

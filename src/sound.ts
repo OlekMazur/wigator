@@ -45,7 +45,7 @@ export function playSound(sound: string, loop = false): boolean {
 		try {
 			elem.play()
 			return true
-		} catch (e) {
+		} catch (_e) {
 		}
 	}
 	return false

@@ -1,7 +1,7 @@
 /*
  * This file is part of Wigator.
  *
- * Copyright (c) 2020 Aleksander Mazur
+ * Copyright (c) 2020, 2023 Aleksander Mazur
  *
  * Wigator is free software: you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -22,7 +22,7 @@ import commonjs from '@rollup/plugin-commonjs'
 import babel from '@rollup/plugin-babel'
 import css from 'rollup-plugin-css-porter'
 import image from '@rollup/plugin-image'
-import { terser } from 'rollup-plugin-terser'
+import terser from '@rollup/plugin-terser'
 
 const plugins = [
 	resolve(),

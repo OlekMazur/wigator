@@ -1,7 +1,7 @@
 /*
  * This file is part of Wigator.
  *
- * Copyright (c) 2018, 2020 Aleksander Mazur
+ * Copyright (c) 2018, 2024 Aleksander Mazur
  *
  * Wigator is free software: you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -70,10 +70,15 @@ export interface IMapFile {
 function loadMapFile(blob: Blob, elem: HTMLElement | null) {
 	let index: number
 
-	return blob
-	.slice(0, 4096)
-	.arrayBuffer()
-	.then((array: ArrayBuffer) => new Promise((resolve: (result: IMapFileHeader) => void, reject: (e: Error) => void) => {
+	return new Promise((resolve: (result: ArrayBuffer) => void, reject: (e: Error) => void) => {
+		const fr = new FileReader()
+		fr.onload = (e) => {
+			if (e.target && e.target.result && typeof e.target.result === 'object')
+				resolve(e.target.result)
+			reject(new Error('Nieprawidłowy plik'))
+		}
+		fr.readAsArrayBuffer(blob.slice(0, 4096))
+	}).then((array: ArrayBuffer) => new Promise((resolve: (result: IMapFileHeader) => void, reject: (e: Error) => void) => {
 		const buf = new Uint8Array(array)
 		index = buf.indexOf(0)
 		if (index <= 0)
@@ -100,7 +105,7 @@ function loadMapFile(blob: Blob, elem: HTMLElement | null) {
 			offset += z.w * z.h
 		}
 		if (elem)
-			elem.innerText = 'v' + hdr.version + ': ' + offset + ' (' +
+			elem.innerHTML = 'v' + hdr.version + ': ' + offset + ' (' +
 				hdr.zoomMin + '-' + (hdr.zoomMin + hdr.zooms.length - 1) + ')'
 		const fr = new FileReader()
 		fr.onload = (e) => {
@@ -133,10 +138,10 @@ function createTable(prefix: string, div: HTMLElement | null, names: string[]) {
 		//const td2 = document.createElement('td')
 		//const td3 = document.createElement('td')
 		const td4 = document.createElement('td')
-		td1.innerText = 'Plik'
-		//td2.innerText = 'Części'
-		//td3.innerText = 'Bajty'
-		td4.innerText = 'Wynik'
+		td1.innerHTML = 'Plik'
+		//td2.innerHTML = 'Części'
+		//td3.innerHTML = 'Bajty'
+		td4.innerHTML = 'Wynik'
 		tr.appendChild(td1)
 		//tr.appendChild(td2)
 		//tr.appendChild(td3)
@@ -152,7 +157,7 @@ function createTable(prefix: string, div: HTMLElement | null, names: string[]) {
 		//const td2 = document.createElement('td')
 		//const td3 = document.createElement('td')
 		const td4 = document.createElement('td')
-		td1.innerText = name
+		td1.innerHTML = name
 		//td2.id = prefix + 'parts-' + name
 		//td2.className = 'align-right'
 		//td3.id = prefix + 'bytes-' + name
@@ -180,7 +185,7 @@ export function loadMapFiles(mapFiles: string[]): Promise<IMapFile[]> {
 		try {
 			// catch Firefox's TypeError: NetworkError
 			promise = fetch(name)
-		} catch(e) {
+		} catch(_e) {
 			promise = Promise.reject()
 		}
 		return promise
@@ -189,31 +194,9 @@ export function loadMapFiles(mapFiles: string[]): Promise<IMapFile[]> {
 				throw new Error(result.status + ' ' + result.statusText)
 			if (result.body) {
 				return result.arrayBuffer().then((value) => new Blob([value], { type: 'application/octet-stream' }))
-				/*
-				const chunks: Uint8Array[] = []
-				let totalBytes = 0
-				const readNext = (reader: ReadableStreamDefaultReader): Blob | Promise<Blob> => reader.read().then(({ done, value }) => {
-					if (value) {
-						chunks.push(value)
-						totalBytes += value.length
-						domSetText(prefix + 'parts-' + name, chunks.length.toString())
-						domSetText(prefix + 'bytes-' + name, totalBytes.toString())
-					}
-					if (done) {
-						domSetText(prefix + 'status-' + name, 'OK')
-						return new Blob(chunks, { type: 'application/octet-stream' })
-					}
-					if (!value) {
-						domSetText(prefix + 'status-' + name, 'EOF')
-						throw new Error(name + ': premature EOF')
-					}
-					return readNext(reader)
-				})
-				return readNext(result.body.getReader())
-				*/
 			} else {
 				if (elem)
-					elem.innerText = 'blob'
+					elem.innerHTML = 'blob'
 				return result.blob()
 			}
 		}).then((blob) => loadMapFile(blob, elem))
@@ -221,7 +204,7 @@ export function loadMapFiles(mapFiles: string[]): Promise<IMapFile[]> {
 			maps.push(map)
 		}).catch((e) => {
 			if (elem)
-				elem.innerText = e.name
+				elem.innerHTML = e.name
 			console.error(name, e)
 		})
 	})).then(() => maps)
