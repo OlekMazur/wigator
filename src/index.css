@@ -1,7 +1,7 @@
 /*
  * This file is part of Wigator.
  *
- * Copyright (c) 2018, 2020, 2021 Aleksander Mazur
+ * Copyright (c) 2018, 2020, 2021, 2025 Aleksander Mazur
  *
  * Wigator is free software: you can redistribute it and/or
  * modify it under the terms of the GNU General Public License as
@@ -75,7 +75,7 @@ html, body, #wigator-map {
 .wigator-panel {
 	margin: 0 auto;
 	padding: 1em;
-	background: rgba(255, 255, 255, 0.9);
+	background: rgb(255, 255, 255, 0.9);
 	border-radius: 0 0 16px 16px;
 	width: 400px;
 	max-width: 90%;
